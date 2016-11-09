@@ -13,29 +13,30 @@
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topLayout;
 
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
-    self.tableView.contentInset = UIEdgeInsetsMake(156, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(160, 0, 0, 0);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
 }
 
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGFloat newConstant = -scrollView.contentOffset.y - 156;
-    if (newConstant < -156) {
-        newConstant = -156;
+    CGFloat newConstant = -scrollView.contentOffset.y - 160;
+    if (newConstant < -130) {
+        newConstant = -130;
     }
-    if (newConstant > 0) {
-        newConstant = 0;
-    }
-
+// 如果判断下面的内容,tableView向下滚动时,topView不会跟着移动
+//    if (newConstant > 0) {
+//        newConstant = 0;
+//    }
+    
     self.topLayout.constant = newConstant;
 }
 
@@ -52,6 +53,9 @@
     cell.textLabel.text = [NSString stringWithFormat:@"单元行%d",(int)indexPath.row];
     return cell;
 }
+
+
+
 
 
 - (void)didReceiveMemoryWarning {
